@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Entornos virtuales
+.venv/
+venv/
+ENV/
+env/
+
+# Pruebas y Cobertura
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# IDEs y Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema Operativo
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Logs y Archivos temporales
+*.log

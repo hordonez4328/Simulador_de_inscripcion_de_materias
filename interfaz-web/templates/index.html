@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Portal Académico{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <!-- BANNER DE BIENVENIDA -->
+    <div class="p-4 mb-4 bg-white rounded-3 shadow-sm border border-secondary border-opacity-25">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <span class="badge bg-primary mb-2">Periodo Académico {{ student.period }}</span>
+                <h2 class="fw-bold text-dark mb-1">Bienvenido, {{ student.name }}</h2>
+                <p class="text-muted mb-3">
+                    Estudiante activo del programa de <strong>{{ student.program }}</strong>.
+                    Consulta tu progreso curricular, gestiona tus asignaturas y experimenta con el laboratorio de programación concurrente.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{{ url_for('curriculum') }}" class="btn btn-primary">
+                        <i class="bi bi-diagram-3 me-1"></i> Ver Malla Curricular (10 Semestres)
+                    </a>
+                    <a href="{{ url_for('simulator') }}" class="btn btn-warning text-dark fw-semibold">
+                        <i class="bi bi-cpu me-1"></i> Laboratorio de Concurrencia
+                    </a>
+                    <a href="{{ url_for('schedule') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-calendar3 me-1"></i> Consultar Horarios
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center d-none d-lg-block">
+                <i class="bi bi-mortarboard display-1 text-primary opacity-25"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL DE RESUMEN ACADÉMICO (TARJETAS OBLIGATORIAS) -->
+    <h5 class="fw-bold text-dark mb-3">
+        <i class="bi bi-speedometer2 text-primary me-2"></i>Resumen Académico del Estudiante
+    </h5>
+
+    <div class="row g-3 mb-4">
+        <!-- Créditos Aprobados -->
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <div class="card summary-card shadow-sm h-100 bg-white">
+                <div class="card-body d-flex align-items-center">
+                    <div class="stat-icon bg-success bg-opacity-10 text-success me-3">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted small">Créditos Aprobados</div>
+                        <div class="fs-4 fw-bold text-dark">{{ summary.approved_credits }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Créditos Inscritos -->
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <div class="card summary-card shadow-sm h-100 bg-white">
+                <div class="card-body d-flex align-items-center">
+                    <div class="stat-icon bg-warning bg-opacity-10 text-warning me-3">
+                        <i class="bi bi-bookmark-check"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted small">Créditos Inscritos</div>
+                        <div class="fs-4 fw-bold text-dark">{{ summary.enrolled_credits }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Materias Cursadas -->
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <div class="card summary-card shadow-sm h-100 bg-white">
+                <div class="card-body d-flex align-items-center">
+                    <div class="stat-icon bg-success bg-opacity-10 text-success me-3">
+                        <i class="bi bi-mortarboard"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted small">Materias Cursadas</div>
+                        <div class="fs-4 fw-bold text-dark">{{ summary.cursadas_count }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Materias Inscritas -->
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <div class="card summary-card shadow-sm h-100 bg-white">
+                <div class="card-body d-flex align-items-center">
+                    <div class="stat-icon bg-warning bg-opacity-10 text-warning me-3">
+                        <i class="bi bi-pencil-square"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted small">Materias Inscritas</div>
+                        <div class="fs-4 fw-bold text-dark">{{ summary.inscritas_count }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Materias Disponibles -->
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <div class="card summary-card shadow-sm h-100 bg-white">
+                <div class="card-body d-flex align-items-center">
+                    <div class="stat-icon bg-danger bg-opacity-10 text-danger me-3" style="color: #fd7e14 !important;">
+                        <i class="bi bi-unlock"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted small">Materias Disponibles</div>
+                        <div class="fs-4 fw-bold text-dark">{{ summary.disponibles_count }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Materias No Habilitadas -->
+        <div class="col-sm-6 col-md-4 col-xl-2">
+            <div class="card summary-card shadow-sm h-100 bg-white">
+                <div class="card-body d-flex align-items-center">
+                    <div class="stat-icon bg-danger bg-opacity-10 text-danger me-3">
+                        <i class="bi bi-lock"></i>
+                    </div>
+                    <div>
+                        <div class="text-muted small">No Habilitadas</div>
+                        <div class="fs-4 fw-bold text-dark">{{ summary.no_habilitadas_count }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACCESOS RÁPIDOS A MÓDULOS DEL PROYECTO -->
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="badge bg-primary p-2 rounded-3 me-2">
+                            <i class="bi bi-diagram-3-fill fs-5"></i>
+                        </span>
+                        <h5 class="card-title fw-bold mb-0">Malla Curricular Visual</h5>
+                    </div>
+                    <p class="card-text text-muted small">
+                        Visualiza los 10 semestres organizados en columnas, con códigos de colores por estado, líneas dinámicas de dependencias y prerrequisitos en SVG.
+                    </p>
+                    <a href="{{ url_for('curriculum') }}" class="btn btn-outline-primary btn-sm">Explorar Malla &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="badge bg-warning text-dark p-2 rounded-3 me-2">
+                            <i class="bi bi-cpu-fill fs-5"></i>
+                        </span>
+                        <h5 class="card-title fw-bold mb-0">Laboratorio de Concurrencia</h5>
+                    </div>
+                    <p class="card-text text-muted small">
+                        Ejecuta en vivo las tres implementaciones (Sin Protección, Mutex, Semáforo) con hilos reales, barrera de sincronización y medición de sobreinscripciones.
+                    </p>
+                    <a href="{{ url_for('simulator') }}" class="btn btn-outline-warning text-dark btn-sm">Abrir Simulador &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="badge bg-success p-2 rounded-3 me-2">
+                            <i class="bi bi-journal-check fs-5"></i>
+                        </span>
+                        <h5 class="card-title fw-bold mb-0">Informe Académico</h5>
+                    </div>
+                    <p class="card-text text-muted small">
+                        Respuestas a las cuatro preguntas teóricas, análisis de sección crítica, comportamiento con 1000 estudiantes y gráficos comparativos.
+                    </p>
+                    <a href="{{ url_for('analysis') }}" class="btn btn-outline-success btn-sm">Ver Informe &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

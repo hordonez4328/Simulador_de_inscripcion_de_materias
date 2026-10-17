@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}Plan de Estudios - Malla Curricular{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <!-- BARRA SUPERIOR DE CONTROL Y LEYENDA -->
+    <div class="card shadow-sm border-0 mb-3 bg-white">
+        <div class="card-body py-2 px-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <!-- Leyenda Obligatoria -->
+                <div class="d-flex flex-wrap align-items-center">
+                    <span class="fw-bold small text-muted me-3">ESTADOS ACADÉMICOS:</span>
+                    <div class="legend-item">
+                        <span class="legend-color-box" style="background-color: var(--color-cursada);"></span>
+                        <span>Cursada (Aprobada)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color-box" style="background-color: var(--color-inscrita);"></span>
+                        <span>Inscrita (Periodo Actual)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color-box" style="background-color: var(--color-disponible);"></span>
+                        <span>Disponible para Inscribir</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color-box" style="background-color: var(--color-no-habilitada);"></span>
+                        <span>No Habilitada (Faltan Prerrequisitos)</span>
+                    </div>
+                </div>
+
+                <!-- Controles -->
+                <div class="d-flex align-items-center gap-3">
+                    <div class="form-check form-switch mb-0">
+                        <input class="form-check-input" type="checkbox" id="togglePrereqLines" checked>
+                        <label class="form-check-label small fw-semibold" for="togglePrereqLines">
+                            <i class="bi bi-bezier2 me-1"></i> Líneas de Prerrequisitos
+                        </label>
+                    </div>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="centerCurriculumView()">
+                        <i class="bi bi-arrows-fullscreen"></i> Centrar Vista
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DE MALLA CURRICULAR CON DESPLAZAMIENTO HORIZONTAL -->
+    <div class="card shadow-sm border-0 bg-white">
+        <div class="card-body p-2">
+            <div class="curriculum-wrapper" id="curriculumWrapper">
+                <!-- Capa SVG para líneas de prerrequisitos -->
+                <svg id="prereq-svg"></svg>
+
+                <!-- Cuadrícula de 10 Semestres -->
+                <div class="curriculum-grid" id="curriculumGrid">
+                    {% for semester in semesters %}
+                    <div class="semester-column" data-semester="{{ semester.number }}">
+                        <div class="semester-header">
+                            <span class="fw-bold text-dark d-block">{{ semester.name }}</span>
+                            <span class="badge bg-secondary" style="font-size: 0.7rem;">{{ semester.courses|length }} Asignaturas</span>
+                        </div>
+                        <div class="semester-body">
+                            {% for course in semester.courses %}
+                            <div class="course-card status-{{ course.status }}"
+                                 id="course-{{ course.code }}"
+                                 data-code="{{ course.code }}"
+                                 data-name="{{ course.name }}"
+                                 data-status="{{ course.status }}"
+                                 data-credits="{{ course.credits }}"
+                                 data-prerequisites='{{ course.prerequisites | tojson }}'
+                                 onclick="openCourseModal('{{ course.code }}')">
+                                
+                                <div class="d-flex justify-content-between align-items-start mb-1">
+                                    <span class="badge bg-dark fw-bold" style="font-size: 0.72rem;">{{ course.code }}</span>
+                                    <span class="badge bg-light text-dark border" style="font-size: 0.7rem;">{{ course.credits }} Créd.</span>
+                                </div>
+                                <div class="fw-semibold text-truncate small mb-1" title="{{ course.name }}">
+                                    {{ course.short_name }}
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <span class="badge badge-status" style="font-size: 0.68rem;">
+                                        {% if course.status == 'cursada' %}
+                                            <i class="bi bi-check-circle-fill"></i> Cursada
+                                        {% elif course.status == 'inscrita' %}
+                                            <i class="bi bi-bookmark-check-fill"></i> Inscrita
+                                        {% elif course.status == 'disponible' %}
+                                            <i class="bi bi-arrow-right-circle-fill"></i> Disponible
+                                        {% else %}
+                                            <i class="bi bi-lock-fill"></i> No Habilitada
+                                        {% endif %}
+                                    </span>
+                                    {% if course.prerequisites|length > 0 %}
+                                    <span class="small text-muted" title="Prerrequisitos: {{ course.prerequisites|join(', ') }}" style="font-size: 0.7rem;">
+                                        <i class="bi bi-link-45deg"></i>{{ course.prerequisites|length }}
+                                    </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE DETALLE DE ASIGNATURA E INSCRIPCIÓN -->
+<div class="modal fade" id="courseDetailModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <div>
+                    <h5 class="modal-title fw-bold" id="modalCourseTitle">Detalle de Asignatura</h5>
+                    <span class="badge bg-primary" id="modalCourseCode">IS000</span>
+                    <span class="badge bg-secondary ms-1" id="modalCourseCredits">0 Créditos</span>
+                    <span class="badge ms-1" id="modalCourseStatus">Estado</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Descripción -->
+                <div class="mb-3">
+                    <h6 class="fw-bold text-muted small text-uppercase">Descripción del Curso</h6>
+                    <p id="modalCourseDesc" class="small text-dark mb-0"></p>
+                </div>
+
+                <!-- Prerrequisitos -->
+                <div class="mb-3">
+                    <h6 class="fw-bold text-muted small text-uppercase">Prerrequisitos Académicos</h6>
+                    <div id="modalPrereqContainer" class="d-flex flex-wrap gap-1"></div>
+                </div>
+
+                <!-- Alerta de Restricción -->
+                <div id="modalAlertBox" class="alert d-none small mb-3"></div>
+
+                <!-- Grupos y Horarios Disponibles -->
+                <div>
+                    <h6 class="fw-bold text-muted small text-uppercase">Grupos y Franjas Horarias</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered align-middle small mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Grupo</th>
+                                    <th>Docente</th>
+                                    <th>Salón / Modalidad</th>
+                                    <th>Horario</th>
+                                    <th>Cupos Totales</th>
+                                    <th>Cupos Disp.</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modalGroupsBody">
+                                <!-- Filas de grupos inyectadas dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/curriculum.js') }}"></script>
+{% endblock %}

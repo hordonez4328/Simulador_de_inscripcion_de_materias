@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}Informe y Análisis Académico{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <!-- ENCABEZADO -->
+    <div class="p-4 mb-4 bg-white rounded-3 shadow-sm border border-secondary border-opacity-25">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <span class="badge bg-primary mb-2">Fundamentación Teórica y Experimental</span>
+                <h2 class="fw-bold text-dark mb-1">Informe Académico de Concurrencia</h2>
+                <p class="text-muted small mb-0">
+                    Respuestas técnicas a las cuatro preguntas fundamentales sobre condiciones de carrera, exclusión mutua, equidad y escalabilidad.
+                </p>
+            </div>
+            <div>
+                <a href="{{ url_for('simulator') }}" class="btn btn-warning text-dark btn-sm fw-bold">
+                    <i class="bi bi-cpu me-1"></i> Ir al Laboratorio
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- PREGUNTA 1: SECCIÓN CRÍTICA -->
+    <div class="card shadow-sm border-0 mb-4 bg-white">
+        <div class="card-header bg-dark text-white py-3">
+            <h5 class="fw-bold mb-0">
+                <i class="bi bi-patch-question-fill text-warning me-2"></i>Pregunta 1. ¿Cuál es la sección crítica?
+            </h5>
+        </div>
+        <div class="card-body">
+            <p>
+                La <strong>sección crítica</strong> es el fragmento de código donde se accede y modifica un recurso compartido mutable (en este proyecto, el contador de cupos disponibles <code>available_quota</code> y la lista compartida de <code>enrolled_students</code>).
+            </p>
+            <div class="alert alert-info small">
+                <strong>¿Por qué deben ejecutarse como una operación indivisible (atómica)?</strong><br>
+                Porque si la <em>comprobación de disponibilidad</em> (<code>if available_quota > 0</code>), el <em>decremento</em> (<code>available_quota -= 1</code>) y el <em>registro</em> no se ejecutan atómicamente, se produce una ventana temporal donde múltiples hilos observan que aún hay cupos (por ejemplo, 5 cupos) antes de que cualquiera de ellos actualice la variable. Cuando todos decrementan concurrentemente, el contador disminuye por debajo de cero y se producen <strong>sobreinscripciones ilegítimas</strong>.
+            </div>
+
+            <h6 class="fw-bold text-dark mt-3">Comparativa de Código Real en las Tres Versiones:</h6>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="border rounded p-3 bg-light h-100">
+                        <span class="badge bg-danger mb-2">Versión Sin Protección (Insegura)</span>
+                        <pre class="small bg-dark text-white p-2 rounded"><code># 1. Lectura sin cerrojo
+observed = self.available_quota
+
+# 2. Comprobación desprotegida
+if observed > 0:
+    # 3. Pausa (ventana de carrera)
+    time.sleep(self.delay)
+    # 4. Decremento no atómico
+    self.available_quota -= 1
+    # 5. Registro
+    self.enrolled_students.append(sid)</code></pre>
+                        <small class="text-danger">Cualquier hilo puede intercalar su ejecución entre la comprobación y la modificación.</small>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="border rounded p-3 bg-light h-100">
+                        <span class="badge bg-success mb-2">Versión con Mutex (Lock)</span>
+                        <pre class="small bg-dark text-white p-2 rounded"><code># Sección Crítica Atómica
+with self.lock:
+    if self.available_quota > 0:
+        self.available_quota -= 1
+        self.enrolled_students.append(sid)
+        success = True
+    else:
+        self.rejected_students.append(sid)
+        success = False</code></pre>
+                        <small class="text-success">Solo un único hilo posee el cerrojo. Si otro hilo llega, se suspende hasta la liberación.</small>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="border rounded p-3 bg-light h-100">
+                        <span class="badge bg-primary mb-2">Versión con Semáforo Binario</span>
+                        <pre class="small bg-dark text-white p-2 rounded"><code># Sección Crítica Atómica
+with self.semaphore:
+    if self.available_quota > 0:
+        self.available_quota -= 1
+        self.enrolled_students.append(sid)
+        success = True
+    else:
+        self.rejected_students.append(sid)
+        success = False</code></pre>
+                        <small class="text-primary">El semáforo inicializado en 1 permiso actúa como exclusión mutua binaria equivalente al mutex.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PREGUNTA 2: INTERCAMBIO DE MUTEX Y SEMÁFORO -->
+    <div class="card shadow-sm border-0 mb-4 bg-white">
+        <div class="card-header bg-dark text-white py-3">
+            <h5 class="fw-bold mb-0">
+                <i class="bi bi-patch-question-fill text-warning me-2"></i>Pregunta 2. ¿Qué ocurre si se intercambian Mutex y Semáforo?
+            </h5>
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>¿Seguiría funcionando la versión protegida con Mutex si se sustituye por un Semáforo Binario y viceversa?</strong>
+            </p>
+            <div class="alert alert-success small mb-3">
+                <strong>Respuesta técnica:</strong> 
+                <strong>SÍ, en este escenario específico de exclusión mutua binaria son intercambiables.</strong> Un semáforo binario inicializado en <code>Semaphore(1)</code> permite un único acceso simultáneo a la sección crítica, comportándose funcionalmente de forma análoga a un <code>Lock</code>.
+            </div>
+            <h6 class="fw-bold text-dark">Diferencias conceptuales cruciales:</h6>
+            <ul>
+                <li>
+                    <strong>Propiedad (Ownership):</strong> En un <code>Mutex (Lock)</code>, conceptualmente solo el hilo que adquiere el cerrojo debe liberarlo. En cambio, un <code>Semáforo</code> es un mecanismo de señalización de permisos; un hilo puede incrementar (señalizar) el semáforo aunque otro lo haya decrementado.
+                </li>
+                <li>
+                    <strong>Semáforo Contador vs. Binario:</strong> Si en lugar de <code>Semaphore(1)</code> se utilizara un semáforo contador inicializado con <code>Semaphore(5)</code> pensando que representa los 5 cupos de la materia, <strong>el programa NO garantizaría la actualización consistente de la variable <code>available_quota</code></strong>. Los 5 hilos ingresarían concurrentemente a decrementar el mismo contador y colisionarían en memoria.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PREGUNTA 3: ESPERA ACOTADA -->
+    <div class="card shadow-sm border-0 mb-4 bg-white">
+        <div class="card-header bg-dark text-white py-3">
+            <h5 class="fw-bold mb-0">
+                <i class="bi bi-patch-question-fill text-warning me-2"></i>Pregunta 3. ¿Se garantiza una espera acotada?
+            </h5>
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>¿Puede un estudiante quedarse esperando indefinidamente a que se le atienda?</strong>
+            </p>
+            <div class="alert alert-warning small mb-3">
+                <strong>Distinción teórica:</strong> Los criterios de una solución correcta a la sección crítica (según Dijkstra) son:
+                <ol class="mb-0">
+                    <li><strong>Exclusión Mutua:</strong> Solo un proceso en la SC a la vez (Garantizado por Lock y Semaphore).</li>
+                    <li><strong>Progreso:</strong> Si ningún hilo está en la SC, la decisión de quién entra no se pospone indefinidamente (Garantizado).</li>
+                    <li><strong>Espera Acotada (Bounded Waiting):</strong> Existe un límite en el número de veces que otros procesos entran a la SC antes de que un solicitante sea atendido.</li>
+                </ol>
+            </div>
+            <p class="small text-muted">
+                <strong>Análisis en Python / SO:</strong> Ni <code>threading.Lock</code> ni <code>threading.Semaphore</code> garantizan en estricto rigor matemático una cola FIFO determinista de atención equitativa (*Fair Lock*). El orden de despertar de los hilos depende del planificador de hilos del sistema operativo Windows y del GIL (Global Interpreter Lock) de CPython. En un escenario de altísima contención, un hilo desafortunado podría teóricamente experimentar inanición (*starvation*) temporal frente a otros hilos recién llegados. Sin embargo, en nuestras pruebas empíricas, al ser la sección crítica sumamente breve (del orden de microsegundos), todos los hilos completan su solicitud en menos de 0.05 segundos.
+            </p>
+        </div>
+    </div>
+
+    <!-- PREGUNTA 4: ESCALABILIDAD CON 1000 ESTUDIANTES -->
+    <div class="card shadow-sm border-0 mb-4 bg-white">
+        <div class="card-header bg-dark text-white py-3">
+            <h5 class="fw-bold mb-0">
+                <i class="bi bi-patch-question-fill text-warning me-2"></i>Pregunta 4. ¿Qué ocurre con 1000 estudiantes?
+            </h5>
+        </div>
+        <div class="card-body">
+            <p>
+                Comportamiento observado al escalar la prueba a <strong>1000 estudiantes (1000 hilos reales del SO)</strong> compitiendo por 5 cupos:
+            </p>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card border bg-light h-100">
+                        <div class="card-body">
+                            <h6 class="fw-bold text-danger">Versión Sin Protección (1000 hilos)</h6>
+                            <ul class="small mb-0">
+                                <li><strong>Colapso de integridad:</strong> La condición de carrera se magnifica drásticamente. Cientos de hilos leen el contador positivo simultáneamente.</li>
+                                <li><strong>Sobreinscripciones masivas:</strong> Se pueden otorgar decenas o cientos de cupos de más, llevando el contador a números profundamente negativos (e.g. -150).</li>
+                                <li><strong>Inconsistencias irreparables:</strong> La lista de inscritos no refleja la realidad física del aula.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border bg-light h-100">
+                        <div class="card-body">
+                            <h6 class="fw-bold text-success">Versiones Protegidas Mutex / Semáforo (1000 hilos)</h6>
+                            <ul class="small mb-0">
+                                <li><strong>Integridad 100% preservada:</strong> Exactamente 5 estudiantes resultan inscritos y 995 son rechazados de manera controlada. El contador final es exactamente 0.</li>
+                                <li><strong>Sobrecarga por cambio de contexto:</strong> Crear y coordinar 1000 hilos en el kernel genera sobrecarga de memoria y cambios de contexto (*context switching*).</li>
+                                <li><strong>Tiempo de ejecución:</strong> El tiempo global sube ligeramente debido a la cola de contención en el cerrojo, pero la sección crítica no se corrompe.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}Laboratorio de Concurrencia{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <!-- TITULO DE LA PÁGINA -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-1">
+                <i class="bi bi-cpu-fill text-warning me-2"></i>Laboratorio Experimental de Concurrencia
+            </h3>
+            <p class="text-muted small mb-0">
+                Simula múltiples estudiantes (hilos reales del sistema operativo) compitiendo simultáneamente por cupos limitados.
+            </p>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary btn-sm" id="btnRunComparative">
+                <i class="bi bi-arrow-left-right me-1"></i> Comparar las 3 Versiones
+            </button>
+            <button class="btn btn-outline-secondary btn-sm" id="btnResetSimulation">
+                <i class="bi bi-arrow-counterclockwise me-1"></i> Reiniciar
+            </button>
+        </div>
+    </div>
+
+    <!-- PANEL PRINCIPAL: PARÁMETROS Y LOGS -->
+    <div class="row g-4 mb-4">
+        <!-- FORMULARIO DE PARÁMETROS -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 h-100 bg-white">
+                <div class="card-header bg-dark text-white fw-bold py-2">
+                    <i class="bi bi-sliders me-2"></i>Parámetros de la Simulación
+                </div>
+                <div class="card-body">
+                    <form id="simulationForm">
+                        <!-- Materia de Prueba -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Materia de Prueba</label>
+                            <input type="text" class="form-control form-control-sm bg-light" id="simCourseCode" value="IS100 (Sistemas Operativos)" readonly>
+                        </div>
+
+                        <!-- Versión a Ejecutar -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Mecanismo de Sincronización</label>
+                            <select class="form-select form-select-sm" id="simMode">
+                                <option value="unsafe" selected>1. Sin Protección (Expone Condición de Carrera)</option>
+                                <option value="mutex">2. Protegida con Mutex (threading.Lock)</option>
+                                <option value="semaforo">3. Protegida con Semáforo Binario (threading.Semaphore)</option>
+                            </select>
+                        </div>
+
+                        <!-- Cupos Disponibles -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Cupos Disponibles Iniciales</label>
+                            <input type="number" class="form-control form-control-sm" id="simQuota" value="5" min="1" max="200">
+                            <div class="form-text small">Por defecto: 5 cupos</div>
+                        </div>
+
+                        <!-- Estudiantes Concurrentes (Hilos) -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Número de Estudiantes (Hilos Reales)</label>
+                            <input type="number" class="form-control form-control-sm" id="simStudents" value="10" min="2" max="1000">
+                            <!-- Presets Rápidos -->
+                            <div class="d-flex gap-1 mt-1">
+                                <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size: 0.75rem;" onclick="setStudentsPreset(10)">10</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size: 0.75rem;" onclick="setStudentsPreset(100)">100</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size: 0.75rem;" onclick="setStudentsPreset(500)">500</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size: 0.75rem;" onclick="setStudentsPreset(1000)">1000</button>
+                            </div>
+                        </div>
+
+                        <!-- Pausa Artificial Configurable -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label small fw-semibold text-muted">Pausa Artificial (Latencia)</label>
+                                <span class="small fw-bold text-primary" id="delayValueLabel">0.010 s</span>
+                            </div>
+                            <input type="range" class="form-range" id="simDelay" min="0" max="0.05" step="0.002" value="0.01" oninput="updateDelayLabel(this.value)">
+                            <div class="form-text small">Amplía la ventana de intercalación temporal entre lectura y escritura.</div>
+                        </div>
+
+                        <!-- Botón de Ejecutar -->
+                        <button type="submit" class="btn btn-warning w-100 fw-bold shadow-sm" id="btnRunSingle">
+                            <i class="bi bi-play-circle-fill me-1"></i> Ejecutar Prueba
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- TERMINAL DE REGISTRO VISUAL EN TIEMPO REAL -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 h-100 bg-white">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-2">
+                    <span class="fw-bold small font-monospace">
+                        <i class="bi bi-terminal me-2 text-info"></i>REGISTRO DE EVENTOS EN TIEMPO REAL
+                    </span>
+                    <span class="badge bg-secondary font-monospace" id="terminalStatusBadge">Listo</span>
+                </div>
+                <div class="card-body p-2">
+                    <div class="log-terminal" id="logTerminal">
+                        <div class="log-entry event-info">Universidad Virtual - Simulador de Hilos v2.0</div>
+                        <div class="log-entry event-info">Seleccione los parámetros y presione "Ejecutar Prueba" o "Comparar las 3 Versiones".</div>
+                        <div class="log-entry event-info">--------------------------------------------------------------------------------</div>
+                    </div>
+                </div>
+                <div class="card-footer bg-light py-2 px-3 small text-muted d-flex justify-content-between">
+                    <span><i class="bi bi-info-circle me-1"></i> Cada hilo real sincroniza su inicio mediante barrera.</span>
+                    <button class="btn btn-link btn-sm p-0 text-decoration-none" onclick="clearTerminal()">Limpiar consola</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TARJETAS DE RESULTADOS Y MÉTRICAS CALCULADAS -->
+    <div class="card shadow-sm border-0 mb-4 bg-white" id="metricsCardContainer">
+        <div class="card-header bg-white border-bottom py-2 d-flex justify-content-between align-items-center">
+            <h5 class="fw-bold text-dark mb-0">
+                <i class="bi bi-graph-up-arrow text-primary me-2"></i>Métricas de la Última Ejecución
+            </h5>
+            <span class="badge bg-secondary" id="metricStatusLabel">Sin ejecuciones recientes</span>
+        </div>
+        <div class="card-body">
+            <div class="row g-3 text-center">
+                <div class="col-6 col-md-3 col-xl-2">
+                    <div class="p-2 border rounded bg-light">
+                        <div class="text-muted small">Cupos Iniciales</div>
+                        <div class="fs-4 fw-bold text-dark" id="metricInitialQuota">-</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <div class="p-2 border rounded bg-light">
+                        <div class="text-muted small">Total Estudiantes</div>
+                        <div class="fs-4 fw-bold text-dark" id="metricNumStudents">-</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <div class="p-2 border rounded bg-light">
+                        <div class="text-muted small">Inscritos Exitosos</div>
+                        <div class="fs-4 fw-bold text-success" id="metricSuccessful">-</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <div class="p-2 border rounded bg-light">
+                        <div class="text-muted small">Rechazados</div>
+                        <div class="fs-4 fw-bold text-danger" id="metricRejected">-</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <div class="p-2 border rounded bg-light">
+                        <div class="text-muted small">Cupos Finales</div>
+                        <div class="fs-4 fw-bold text-primary" id="metricFinalQuota">-</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <div class="p-2 border rounded bg-light" id="boxOversubscription">
+                        <div class="text-muted small">Sobreinscripciones</div>
+                        <div class="fs-4 fw-bold text-danger" id="metricOversubscriptions">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fila 2: Tiempos y Rendimiento -->
+            <div class="row g-3 mt-1 text-center">
+                <div class="col-md-3">
+                    <div class="p-2 border rounded bg-light">
+                        <div class="text-muted small">Inconsistencias Lógicas</div>
+                        <div class="fs-5 fw-bold text-danger" id="metricInconsistencies">-</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-2 border rounded bg-light">
+                        <div class="text-muted small">Tiempo Total de Ejecución</div>
+                        <div class="fs-5 fw-bold text-dark" id="metricTotalTime">-</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-2 border rounded bg-light">
+                        <div class="text-muted small">Tiempo Medio de Espera</div>
+                        <div class="fs-5 fw-bold text-dark" id="metricAvgWait">-</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-2 border rounded bg-light">
+                        <div class="text-muted small">Tiempo Máximo Observado</div>
+                        <div class="fs-5 fw-bold text-dark" id="metricMaxWait">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN DE COMPARACIÓN GRÁFICA EN VIVO -->
+    <div class="row g-4 mb-4" id="comparativeChartsSection" style="display: none;">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 h-100 bg-white">
+                <div class="card-header bg-white fw-bold py-2">
+                    <i class="bi bi-bar-chart me-2 text-primary"></i>Inscritos vs Sobreinscripciones por Versión
+                </div>
+                <div class="card-body">
+                    <canvas id="chartEnrollmentComparison" height="220"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 h-100 bg-white">
+                <div class="card-header bg-white fw-bold py-2">
+                    <i class="bi bi-stopwatch me-2 text-warning"></i>Tiempo Total de Ejecución (s)
+                </div>
+                <div class="card-body">
+                    <canvas id="chartTimeComparison" height="220"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/simulator.js') }}"></script>
+{% endblock %}
