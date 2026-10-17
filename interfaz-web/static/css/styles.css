@@ -1,0 +1,272 @@
+/* ESTILOS DEL PORTAL UNIVERSITARIO Y SIMULADOR DE CONCURRENCIA */
+
+:root {
+    --color-cursada: #198754;
+    --color-cursada-bg: #d1e7dd;
+    --color-cursada-border: #a3cfbb;
+
+    --color-inscrita: #ffc107;
+    --color-inscrita-bg: #fff3cd;
+    --color-inscrita-border: #ffe69c;
+
+    --color-disponible: #fd7e14;
+    --color-disponible-bg: #ffe5d0;
+    --color-disponible-border: #fecba1;
+
+    --color-no-habilitada: #dc3545;
+    --color-no-habilitada-bg: #f8d7da;
+    --color-no-habilitada-border: #f1aeb5;
+
+    --univ-blue: #0d6efd;
+    --univ-dark: #212529;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+/* Encabezado y Barra */
+.univ-header {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+.brand-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+/* Tarjetas de Resumen */
+.summary-card {
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+}
+
+.summary-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 1.5rem;
+}
+
+/* Malla Curricular */
+.curriculum-wrapper {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding-bottom: 2rem;
+    min-height: 700px;
+}
+
+.curriculum-grid {
+    display: flex;
+    gap: 1.25rem;
+    min-width: 2500px; /* 10 columnas de 230px + gaps */
+    position: relative;
+    padding: 10px;
+}
+
+.semester-column {
+    flex: 0 0 230px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+.semester-header {
+    background: #f1f5f9;
+    padding: 10px 12px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: 2px solid #cbd5e1;
+    text-align: center;
+}
+
+.semester-body {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+/* Tarjetas de Asignatura */
+.course-card {
+    position: relative;
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    z-index: 2;
+}
+
+.course-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+    z-index: 10;
+}
+
+/* COLORES OBLIGATORIOS SEGÚN ESPECIFICACIÓN */
+
+/* 1. VERDE: Cursadas */
+.course-card.status-cursada {
+    background-color: var(--color-cursada-bg);
+    border: 2px solid var(--color-cursada);
+    color: #0f5132;
+}
+
+.course-card.status-cursada .badge-status {
+    background-color: var(--color-cursada);
+    color: #ffffff;
+}
+
+/* 2. AMARILLO: Inscritas */
+.course-card.status-inscrita {
+    background-color: var(--color-inscrita-bg);
+    border: 2px solid #d39e00;
+    color: #664d03;
+}
+
+.course-card.status-inscrita .badge-status {
+    background-color: #d39e00;
+    color: #ffffff;
+}
+
+/* 3. NARANJA: Disponibles */
+.course-card.status-disponible {
+    background-color: var(--color-disponible-bg);
+    border: 2px solid var(--color-disponible);
+    color: #984c0c;
+}
+
+.course-card.status-disponible .badge-status {
+    background-color: var(--color-disponible);
+    color: #ffffff;
+}
+
+/* 4. ROJO: No habilitadas */
+.course-card.status-no_habilitada {
+    background-color: var(--color-no-habilitada-bg);
+    border: 2px solid var(--color-no-habilitada);
+    color: #842029;
+    opacity: 0.85;
+}
+
+.course-card.status-no_habilitada .badge-status {
+    background-color: var(--color-no-habilitada);
+    color: #ffffff;
+}
+
+/* Líneas de Prerrequisitos en SVG */
+#prereq-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.prereq-line {
+    stroke: #94a3b8;
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 4, 3;
+    transition: stroke 0.3s, stroke-width 0.3s;
+}
+
+.prereq-line.highlight {
+    stroke: #0d6efd;
+    stroke-width: 3.5;
+    stroke-dasharray: none;
+    filter: drop-shadow(0 0 4px rgba(13, 110, 253, 0.5));
+}
+
+/* Horario Semanal */
+.schedule-table th, .schedule-table td {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.85rem;
+}
+
+.schedule-slot-cell {
+    height: 52px;
+    padding: 2px;
+    background-color: #ffffff;
+}
+
+.schedule-block {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Terminal de Logs en Simulador */
+.log-terminal {
+    background-color: #0f172a;
+    color: #38bdf8;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.82rem;
+    height: 380px;
+    overflow-y: auto;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.log-entry {
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.log-entry.event-attempt { color: #94a3b8; }
+.log-entry.event-read { color: #38bdf8; }
+.log-entry.event-critical_enter { color: #facc15; }
+.log-entry.event-success { color: #4ade80; font-weight: bold; }
+.log-entry.event-reject { color: #f87171; }
+.log-entry.event-inconsistent { color: #fb7185; background: rgba(239, 68, 68, 0.2); padding: 2px 4px; border-radius: 3px; }
+.log-entry.event-info { color: #e2e8f0; }
+
+/* Leyenda permanente */
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-right: 15px;
+}
+
+.legend-color-box {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}

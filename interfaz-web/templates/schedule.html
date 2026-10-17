@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}Horarios Académicos Semanales{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <!-- ENCABEZADO Y FILTROS -->
+    <div class="card shadow-sm border-0 mb-4 bg-white">
+        <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div>
+                    <h4 class="fw-bold mb-1 text-dark">
+                        <i class="bi bi-calendar-week text-primary me-2"></i>Horario Semanal de Clases
+                    </h4>
+                    <p class="text-muted small mb-0">
+                        Visualización de asignaturas inscritas de Lunes a Sábado en franjas de 07:00 a 21:00.
+                    </p>
+                </div>
+
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                    <!-- Consultar Horarios Disponibles -->
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#consultScheduleModal">
+                        <i class="bi bi-search me-1"></i> Consultar Horarios Ofertados
+                    </button>
+                    <a href="{{ url_for('curriculum') }}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-plus-circle me-1"></i> Inscribir Asignaturas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CALENDARIO SEMANAL (LUNES A SÁBADO) -->
+    <div class="card shadow-sm border-0 bg-white">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered mb-0 schedule-table align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th style="width: 100px;">Hora</th>
+                            <th>Lunes</th>
+                            <th>Martes</th>
+                            <th>Miércoles</th>
+                            <th>Jueves</th>
+                            <th>Viernes</th>
+                            <th>Sábado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set hours = [
+                            ("07:00", "08:00"),
+                            ("08:00", "09:00"),
+                            ("09:00", "10:00"),
+                            ("10:00", "11:00"),
+                            ("11:00", "12:00"),
+                            ("12:00", "13:00"),
+                            ("13:00", "14:00"),
+                            ("14:00", "15:00"),
+                            ("15:00", "16:00"),
+                            ("16:00", "17:00"),
+                            ("17:00", "18:00"),
+                            ("18:00", "19:00"),
+                            ("19:00", "20:00"),
+                            ("20:00", "21:00")
+                        ] %}
+                        {% set days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"] %}
+
+                        {% for h_start, h_end in hours %}
+                        <tr>
+                            <td class="bg-light fw-bold text-muted small py-2">{{ h_start }} - {{ h_end }}</td>
+                            {% for day in days %}
+                            <td class="schedule-slot-cell" data-day="{{ day }}" data-start="{{ h_start }}">
+                                {% for slot in enrolled_slots %}
+                                    {% if slot.day.lower() == day.lower() and slot.start_time <= h_start and slot.end_time >= h_end %}
+                                    <div class="schedule-block bg-primary text-white" title="{{ slot.course_name }} | {{ slot.room }}">
+                                        <div class="d-flex justify-content-between">
+                                            <span>{{ slot.course_code }}</span>
+                                            <span class="badge bg-warning text-dark">{{ slot.group_id }}</span>
+                                        </div>
+                                        <div class="text-truncate" style="font-size: 0.7rem;">{{ slot.course_name }}</div>
+                                        <div class="small text-white-50" style="font-size: 0.65rem;">
+                                            <i class="bi bi-geo-alt"></i> {{ slot.room }}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE CONSULTA DE HORARIOS DISPONIBLES (SIN INSCRIBIR) -->
+<div class="modal fade" id="consultScheduleModal" tabindex="-1" aria-labelledby="consultModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title fw-bold" id="consultModalLabel">
+                    <i class="bi bi-clock-history text-warning me-2"></i>Catálogo de Horarios Ofertados (Periodo 2026-2)
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted small">
+                    Consulte los grupos, docentes y franjas horarias de todas las asignaturas para planificar su semestre sin registrar la inscripción aún.
+                </p>
+                <div class="table-responsive" style="max-height: 480px; overflow-y: auto;">
+                    <table class="table table-hover table-sm align-middle small">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th>Código</th>
+                                <th>Asignatura</th>
+                                <th>Semestre</th>
+                                <th>Grupo</th>
+                                <th>Docente</th>
+                                <th>Salón</th>
+                                <th>Día y Franja</th>
+                                <th>Cupos Disponibles</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c_code, c in courses.items() %}
+                                {% for g in c.groups %}
+                                <tr>
+                                    <td class="fw-bold">{{ c.code }}</td>
+                                    <td>{{ c.name }}</td>
+                                    <td>Sem. {{ c.semester }}</td>
+                                    <td><span class="badge bg-secondary">{{ g.group_id }}</span></td>
+                                    <td>{{ g.teacher }}</td>
+                                    <td>{{ g.room }}</td>
+                                    <td>
+                                        {% for s in g.schedules %}
+                                        <div><i class="bi bi-calendar2-day text-primary"></i> {{ s.day }} {{ s.start_time }}-{{ s.end_time }} ({{ s.room }})</div>
+                                        {% endfor %}
+                                    </td>
+                                    <td class="fw-bold {% if g.available_quota > 0 %}text-success{% else %}text-danger{% endif %}">
+                                        {{ g.available_quota }} / {{ g.total_quota }}
+                                    </td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if c.status == 'cursada' %}bg-success
+                                            {% elif c.status == 'inscrita' %}bg-warning text-dark
+                                            {% elif c.status == 'disponible' %}bg-danger" style="background-color: #fd7e14 !important;"
+                                            {% else %}bg-danger{% endif %}">
+                                            {{ c.status|capitalize }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

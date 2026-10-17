@@ -1,0 +1,1250 @@
+{
+  "student": {
+    "id": "2024-IS-0089",
+    "name": "Carlos Andrés Mendoza",
+    "program": "Ingeniería de Sistemas y Computación",
+    "faculty": "Facultad de Ingenierías",
+    "period": "2026-2",
+    "institution": "Universidad Virtual"
+  },
+  "semesters": [
+    {
+      "number": 1,
+      "name": "Semestre 1",
+      "courses": [
+        {
+          "code": "IS101",
+          "name": "Introducción a la Ingeniería de Sistemas",
+          "short_name": "Intro. Ing. Sistemas",
+          "credits": 3,
+          "semester": 1,
+          "status": "cursada",
+          "grade": 4.5,
+          "description": "Fundamentos y evolución histórica de la informática, rol del ingeniero y ética profesional.",
+          "prerequisites": [],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dra. Sofía Valenzuela",
+              "room": "Aula 101",
+              "total_quota": 30,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Lunes", "start_time": "08:00", "end_time": "10:00", "room": "Aula 101"},
+                {"day": "Miércoles", "start_time": "08:00", "end_time": "10:00", "room": "Aula 101"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS102",
+          "name": "Cálculo Diferencial",
+          "short_name": "Cálculo Diferencial",
+          "credits": 4,
+          "semester": 1,
+          "status": "cursada",
+          "grade": 3.8,
+          "description": "Límites, continuidad y derivadas de funciones reales con aplicaciones en ingeniería.",
+          "prerequisites": [],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Fernando Ruiz",
+              "room": "Aula 202",
+              "total_quota": 35,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Martes", "start_time": "07:00", "end_time": "09:00", "room": "Aula 202"},
+                {"day": "Jueves", "start_time": "07:00", "end_time": "09:00", "room": "Aula 202"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS103",
+          "name": "Fundamentos de Programación",
+          "short_name": "Fund. Programación",
+          "credits": 4,
+          "semester": 1,
+          "status": "cursada",
+          "grade": 4.2,
+          "description": "Pensamiento computacional, lógica algorítmica, estructuras de control y tipos de datos.",
+          "prerequisites": [],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Ing. Camilo Torres",
+              "room": "Lab 105",
+              "total_quota": 25,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Lunes", "start_time": "10:00", "end_time": "12:00", "room": "Lab 105"},
+                {"day": "Viernes", "start_time": "10:00", "end_time": "12:00", "room": "Lab 105"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS104",
+          "name": "Álgebra Lineal",
+          "short_name": "Álgebra Lineal",
+          "credits": 3,
+          "semester": 1,
+          "status": "cursada",
+          "grade": 4.0,
+          "description": "Espacios vectoriales, matrices, determinantes y transformaciones lineales aplicadas.",
+          "prerequisites": [],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dra. Patricia Gómez",
+              "room": "Aula 303",
+              "total_quota": 30,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Miércoles", "start_time": "14:00", "end_time": "16:00", "room": "Aula 303"},
+                {"day": "Viernes", "start_time": "14:00", "end_time": "16:00", "room": "Aula 303"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS105",
+          "name": "Habilidades de Comunicación",
+          "short_name": "Comunicación",
+          "credits": 2,
+          "semester": 1,
+          "status": "cursada",
+          "grade": 4.6,
+          "description": "Expresión oral, escrita y redacción de informes técnicos de ingeniería.",
+          "prerequisites": [],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Lic. Mariana Restrepo",
+              "room": "Aula 108",
+              "total_quota": 30,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Sábado", "start_time": "08:00", "end_time": "11:00", "room": "Aula 108"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "name": "Semestre 2",
+      "courses": [
+        {
+          "code": "IS201",
+          "name": "Programación Orientada a Objetos",
+          "short_name": "Prog. Orientada a Objetos",
+          "credits": 4,
+          "semester": 2,
+          "status": "cursada",
+          "grade": 4.3,
+          "description": "Clases, herencia, polimorfismo, interfaces y diseño orientado a objetos con UML.",
+          "prerequisites": ["IS103"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "MSc. Javier Morales",
+              "room": "Lab 106",
+              "total_quota": 25,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Martes", "start_time": "10:00", "end_time": "12:00", "room": "Lab 106"},
+                {"day": "Jueves", "start_time": "10:00", "end_time": "12:00", "room": "Lab 106"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS202",
+          "name": "Cálculo Integral",
+          "short_name": "Cálculo Integral",
+          "credits": 4,
+          "semester": 2,
+          "status": "cursada",
+          "grade": 3.7,
+          "description": "Técnicas de integración, integrales impropias, series numéricas y aplicaciones.",
+          "prerequisites": ["IS102"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Fernando Ruiz",
+              "room": "Aula 203",
+              "total_quota": 35,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Lunes", "start_time": "07:00", "end_time": "09:00", "room": "Aula 203"},
+                {"day": "Miércoles", "start_time": "07:00", "end_time": "09:00", "room": "Aula 203"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS203",
+          "name": "Estructuras Discretas",
+          "short_name": "Estructuras Discretas",
+          "credits": 3,
+          "semester": 2,
+          "status": "cursada",
+          "grade": 4.1,
+          "description": "Lógica proposicional, teoría de conjuntos, grafos, árboles y combinatoria computacional.",
+          "prerequisites": ["IS104"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Andrés Salazar",
+              "room": "Aula 305",
+              "total_quota": 30,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Martes", "start_time": "14:00", "end_time": "16:00", "room": "Aula 305"},
+                {"day": "Jueves", "start_time": "14:00", "end_time": "16:00", "room": "Aula 305"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS204",
+          "name": "Física Mecánica",
+          "short_name": "Física Mecánica",
+          "credits": 3,
+          "semester": 2,
+          "status": "cursada",
+          "grade": 3.9,
+          "description": "Cinemática, dinámica newtoniana, trabajo, energía y conservación del movimiento.",
+          "prerequisites": ["IS102"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Fís. Marcela León",
+              "room": "Lab Física",
+              "total_quota": 25,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Viernes", "start_time": "08:00", "end_time": "11:00", "room": "Lab Física"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS205",
+          "name": "Constitución y Democracia",
+          "short_name": "Constitución",
+          "credits": 2,
+          "semester": 2,
+          "status": "cursada",
+          "grade": 4.7,
+          "description": "Estructura del Estado de derecho, derechos humanos y ciudadanía ética.",
+          "prerequisites": [],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Abg. Claudia Méndez",
+              "room": "Aula 110",
+              "total_quota": 40,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Sábado", "start_time": "11:00", "end_time": "13:00", "room": "Aula 110"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "name": "Semestre 3",
+      "courses": [
+        {
+          "code": "IS301",
+          "name": "Estructuras de Datos",
+          "short_name": "Estructuras de Datos",
+          "credits": 4,
+          "semester": 3,
+          "status": "cursada",
+          "grade": 4.0,
+          "description": "Listas enlazadas, pilas, colas, tablas hash, árboles binarios y análisis de complejidad O(n).",
+          "prerequisites": ["IS201"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "MSc. Javier Morales",
+              "room": "Lab 107",
+              "total_quota": 25,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Lunes", "start_time": "14:00", "end_time": "16:00", "room": "Lab 107"},
+                {"day": "Miércoles", "start_time": "14:00", "end_time": "16:00", "room": "Lab 107"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS302",
+          "name": "Cálculo Multivariado",
+          "short_name": "Cálc. Multivariado",
+          "credits": 4,
+          "semester": 3,
+          "status": "cursada",
+          "grade": 3.6,
+          "description": "Funciones de varias variables, gradiente, integrales múltiples y análisis vectorial.",
+          "prerequisites": ["IS202"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Fernando Ruiz",
+              "room": "Aula 204",
+              "total_quota": 30,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Martes", "start_time": "07:00", "end_time": "09:00", "room": "Aula 204"},
+                {"day": "Jueves", "start_time": "07:00", "end_time": "09:00", "room": "Aula 204"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS303",
+          "name": "Circuitos Digitales y Lógica",
+          "short_name": "Circuitos Digitales",
+          "credits": 3,
+          "semester": 3,
+          "status": "cursada",
+          "grade": 4.1,
+          "description": "Álgebra booleana, compuertas lógicas, circuitos combinacionales y secuenciales.",
+          "prerequisites": ["IS203"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Ing. Rodrigo Silva",
+              "room": "Lab Hardware",
+              "total_quota": 20,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Martes", "start_time": "16:00", "end_time": "19:00", "room": "Lab Hardware"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS304",
+          "name": "Física Electromagnética",
+          "short_name": "Física Electromag.",
+          "credits": 3,
+          "semester": 3,
+          "status": "cursada",
+          "grade": 3.8,
+          "description": "Campo eléctrico, potencial, ley de Gauss, magnetismo y circuitos RC/RL.",
+          "prerequisites": ["IS204"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Fís. Marcela León",
+              "room": "Lab Física",
+              "total_quota": 25,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Jueves", "start_time": "14:00", "end_time": "17:00", "room": "Lab Física"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS305",
+          "name": "Estadística y Probabilidad",
+          "short_name": "Estadística y Prob.",
+          "credits": 3,
+          "semester": 3,
+          "status": "cursada",
+          "grade": 4.4,
+          "description": "Variables aleatorias, distribuciones de probabilidad, intervalos de confianza y regresión.",
+          "prerequisites": ["IS202"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dra. Patricia Gómez",
+              "room": "Aula 302",
+              "total_quota": 30,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Viernes", "start_time": "14:00", "end_time": "17:00", "room": "Aula 302"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "name": "Semestre 4",
+      "courses": [
+        {
+          "code": "IS401",
+          "name": "Análisis y Diseño de Algoritmos",
+          "short_name": "Algoritmos Avanzados",
+          "credits": 4,
+          "semester": 4,
+          "status": "cursada",
+          "grade": 4.1,
+          "description": "Divide y vencerás, programación dinámica, algoritmos voraces y problemas NP-completos.",
+          "prerequisites": ["IS301"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Carlos Buitrago",
+              "room": "Lab 108",
+              "total_quota": 25,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Lunes", "start_time": "16:00", "end_time": "18:00", "room": "Lab 108"},
+                {"day": "Miércoles", "start_time": "16:00", "end_time": "18:00", "room": "Lab 108"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS402",
+          "name": "Arquitectura de Computadores",
+          "short_name": "Arq. Computadores",
+          "credits": 3,
+          "semester": 4,
+          "status": "cursada",
+          "grade": 3.9,
+          "description": "Organización del procesador, jerarquía de memoria, buses, pipeline y microarquitecturas.",
+          "prerequisites": ["IS303"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Ing. Rodrigo Silva",
+              "room": "Aula 205",
+              "total_quota": 30,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Martes", "start_time": "09:00", "end_time": "11:00", "room": "Aula 205"},
+                {"day": "Jueves", "start_time": "09:00", "end_time": "11:00", "room": "Aula 205"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS403",
+          "name": "Bases de Datos I",
+          "short_name": "Bases de Datos I",
+          "credits": 3,
+          "semester": 4,
+          "status": "cursada",
+          "grade": 4.5,
+          "description": "Modelo relacional, normalización, álgebra relacional y consultas SQL complejas.",
+          "prerequisites": ["IS301"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "MSc. Diana Cárdenas",
+              "room": "Lab 102",
+              "total_quota": 25,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Martes", "start_time": "14:00", "end_time": "16:00", "room": "Lab 102"},
+                {"day": "Jueves", "start_time": "14:00", "end_time": "16:00", "room": "Lab 102"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS404",
+          "name": "Ecuaciones Diferenciales",
+          "short_name": "Ecuac. Diferenciales",
+          "credits": 3,
+          "semester": 4,
+          "status": "cursada",
+          "grade": 3.6,
+          "description": "Ecuaciones ordinarias de primer y segundo orden, transformada de Laplace y modelado.",
+          "prerequisites": ["IS302"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Andrés Salazar",
+              "room": "Aula 304",
+              "total_quota": 30,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Miércoles", "start_time": "09:00", "end_time": "11:00", "room": "Aula 304"},
+                {"day": "Viernes", "start_time": "09:00", "end_time": "11:00", "room": "Aula 304"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS405",
+          "name": "Ingeniería de Requisitos",
+          "short_name": "Ing. Requisitos",
+          "credits": 3,
+          "semester": 4,
+          "status": "cursada",
+          "grade": 4.6,
+          "description": "Levantamiento, especificación, modelado de casos de uso y validación de software.",
+          "prerequisites": ["IS201"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "MSc. Hernán Vélez",
+              "room": "Aula 208",
+              "total_quota": 30,
+              "available_quota": 0,
+              "schedules": [
+                {"day": "Viernes", "start_time": "16:00", "end_time": "19:00", "room": "Aula 208"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "name": "Semestre 5",
+      "courses": [
+        {
+          "code": "IS501",
+          "name": "Sistemas Operativos y Concurrencia",
+          "short_name": "Sistemas Operativos",
+          "credits": 4,
+          "semester": 5,
+          "status": "inscrita",
+          "enrolled_group": "G1",
+          "description": "Gestión de procesos, hilos, sincronización (mutex, semáforos), memoria virtual y sistemas de archivos.",
+          "prerequisites": ["IS402"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Héctor Ordoñez",
+              "room": "Lab Redes 2",
+              "total_quota": 30,
+              "available_quota": 2,
+              "schedules": [
+                {"day": "Lunes", "start_time": "08:00", "end_time": "10:00", "room": "Lab Redes 2"},
+                {"day": "Miércoles", "start_time": "08:00", "end_time": "10:00", "room": "Lab Redes 2"}
+              ]
+            },
+            {
+              "group_id": "G2",
+              "teacher": "Dra. Lucía Castaño",
+              "room": "Lab Redes 1",
+              "total_quota": 25,
+              "available_quota": 5,
+              "schedules": [
+                {"day": "Martes", "start_time": "14:00", "end_time": "16:00", "room": "Lab Redes 1"},
+                {"day": "Jueves", "start_time": "14:00", "end_time": "16:00", "room": "Lab Redes 1"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS502",
+          "name": "Bases de Datos II",
+          "short_name": "Bases de Datos II",
+          "credits": 3,
+          "semester": 5,
+          "status": "inscrita",
+          "enrolled_group": "G1",
+          "description": "Transacciones ACID, control de concurrencia, bases NoSQL, optimización e indexación.",
+          "prerequisites": ["IS403"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "MSc. Diana Cárdenas",
+              "room": "Lab 103",
+              "total_quota": 25,
+              "available_quota": 3,
+              "schedules": [
+                {"day": "Martes", "start_time": "08:00", "end_time": "10:00", "room": "Lab 103"},
+                {"day": "Jueves", "start_time": "08:00", "end_time": "10:00", "room": "Lab 103"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS503",
+          "name": "Redes de Computadores I",
+          "short_name": "Redes I",
+          "credits": 3,
+          "semester": 5,
+          "status": "inscrita",
+          "enrolled_group": "G1",
+          "description": "Modelo OSI y TCP/IP, direccionamiento IPv4/IPv6, subredes, switches y routers.",
+          "prerequisites": ["IS402"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Ing. Mario Castañeda",
+              "room": "Lab Cisco",
+              "total_quota": 20,
+              "available_quota": 1,
+              "schedules": [
+                {"day": "Miércoles", "start_time": "10:00", "end_time": "12:00", "room": "Lab Cisco"},
+                {"day": "Viernes", "start_time": "10:00", "end_time": "12:00", "room": "Lab Cisco"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS504",
+          "name": "Diseño y Arquitectura de Software",
+          "short_name": "Arq. de Software",
+          "credits": 3,
+          "semester": 5,
+          "status": "disponible",
+          "description": "Patrones de diseño GoF, arquitectura hexagonal, microservicios y estilos arquitectónicos.",
+          "prerequisites": ["IS405"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "MSc. Hernán Vélez",
+              "room": "Aula 210",
+              "total_quota": 25,
+              "available_quota": 8,
+              "schedules": [
+                {"day": "Lunes", "start_time": "14:00", "end_time": "16:00", "room": "Aula 210"},
+                {"day": "Miércoles", "start_time": "14:00", "end_time": "16:00", "room": "Aula 210"}
+              ]
+            },
+            {
+              "group_id": "G2",
+              "teacher": "Ing. Camilo Torres",
+              "room": "Aula 212",
+              "total_quota": 25,
+              "available_quota": 6,
+              "schedules": [
+                {"day": "Martes", "start_time": "16:00", "end_time": "18:00", "room": "Aula 212"},
+                {"day": "Jueves", "start_time": "16:00", "end_time": "18:00", "room": "Aula 212"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS505",
+          "name": "Análisis Numérico",
+          "short_name": "Análisis Numérico",
+          "credits": 3,
+          "semester": 5,
+          "status": "disponible",
+          "description": "Aproximación de raíces, interpolación, solución numérica de ecuaciones y cálculo de errores.",
+          "prerequisites": ["IS404"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Andrés Salazar",
+              "room": "Aula 301",
+              "total_quota": 30,
+              "available_quota": 10,
+              "schedules": [
+                {"day": "Viernes", "start_time": "14:00", "end_time": "17:00", "room": "Aula 301"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "name": "Semestre 6",
+      "courses": [
+        {
+          "code": "IS601",
+          "name": "Redes de Computadores II",
+          "short_name": "Redes II",
+          "credits": 3,
+          "semester": 6,
+          "status": "no_habilitada",
+          "description": "Protocolos de enrutamiento OSPF, BGP, SDN, calidad de servicio y redes inalámbricas.",
+          "prerequisites": ["IS503"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Ing. Mario Castañeda",
+              "room": "Lab Cisco",
+              "total_quota": 20,
+              "available_quota": 12,
+              "schedules": [
+                {"day": "Martes", "start_time": "10:00", "end_time": "12:00", "room": "Lab Cisco"},
+                {"day": "Jueves", "start_time": "10:00", "end_time": "12:00", "room": "Lab Cisco"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS602",
+          "name": "Desarrollo de Aplicaciones Web",
+          "short_name": "Desarrollo Web",
+          "credits": 4,
+          "semester": 6,
+          "status": "disponible",
+          "description": "Frontend reactivo, APIs RESTful, frameworks backend (Flask/Django/FastAPI) y despliegue.",
+          "prerequisites": ["IS403", "IS405"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Ing. Laura Pineda",
+              "room": "Lab Web",
+              "total_quota": 25,
+              "available_quota": 7,
+              "schedules": [
+                {"day": "Martes", "start_time": "14:00", "end_time": "16:00", "room": "Lab Web"},
+                {"day": "Jueves", "start_time": "14:00", "end_time": "16:00", "room": "Lab Web"}
+              ]
+            },
+            {
+              "group_id": "G2",
+              "teacher": "MSc. Camilo Torres",
+              "room": "Lab Web",
+              "total_quota": 25,
+              "available_quota": 4,
+              "schedules": [
+                {"day": "Sábado", "start_time": "08:00", "end_time": "12:00", "room": "Lab Web"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS603",
+          "name": "Ingeniería de Software",
+          "short_name": "Ing. Software",
+          "credits": 3,
+          "semester": 6,
+          "status": "disponible",
+          "description": "Metodologías ágiles Scrum/Kanban, DevOps, integración continua y gestión de proyectos.",
+          "prerequisites": ["IS405"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "MSc. Hernán Vélez",
+              "room": "Aula 206",
+              "total_quota": 30,
+              "available_quota": 11,
+              "schedules": [
+                {"day": "Lunes", "start_time": "10:00", "end_time": "12:00", "room": "Aula 206"},
+                {"day": "Miércoles", "start_time": "10:00", "end_time": "12:00", "room": "Aula 206"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS604",
+          "name": "Compiladores e Intérpretes",
+          "short_name": "Compiladores",
+          "credits": 3,
+          "semester": 6,
+          "status": "no_habilitada",
+          "description": "Análisis léxico, sintáctico, semántico, generación de código intermedio y optimización.",
+          "prerequisites": ["IS401"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Carlos Buitrago",
+              "room": "Lab 104",
+              "total_quota": 25,
+              "available_quota": 15,
+              "schedules": [
+                {"day": "Lunes", "start_time": "16:00", "end_time": "18:00", "room": "Lab 104"},
+                {"day": "Viernes", "start_time": "16:00", "end_time": "18:00", "room": "Lab 104"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS605",
+          "name": "Investigación de Operaciones",
+          "short_name": "Inv. de Operaciones",
+          "credits": 3,
+          "semester": 6,
+          "status": "disponible",
+          "description": "Programación lineal, método Simplex, dualidad, teoría de colas y modelos de transporte.",
+          "prerequisites": ["IS305"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dra. Patricia Gómez",
+              "room": "Aula 306",
+              "total_quota": 30,
+              "available_quota": 9,
+              "schedules": [
+                {"day": "Martes", "start_time": "16:00", "end_time": "18:00", "room": "Aula 306"},
+                {"day": "Jueves", "start_time": "16:00", "end_time": "18:00", "room": "Aula 306"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "name": "Semestre 7",
+      "courses": [
+        {
+          "code": "IS701",
+          "name": "Sistemas Distribuidos",
+          "short_name": "Sist. Distribuidos",
+          "credits": 3,
+          "semester": 7,
+          "status": "no_habilitada",
+          "description": "Paso de mensajes, RPC/gRPC, consenso distribuido Paxos/Raft, tolerancia a fallos y reloj lógico.",
+          "prerequisites": ["IS501"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Héctor Ordoñez",
+              "room": "Lab Redes 2",
+              "total_quota": 20,
+              "available_quota": 14,
+              "schedules": [
+                {"day": "Lunes", "start_time": "14:00", "end_time": "16:00", "room": "Lab Redes 2"},
+                {"day": "Miércoles", "start_time": "14:00", "end_time": "16:00", "room": "Lab Redes 2"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS702",
+          "name": "Seguridad Informática",
+          "short_name": "Seguridad Informática",
+          "credits": 3,
+          "semester": 7,
+          "status": "no_habilitada",
+          "description": "Criptografía simétrica/asimétrica, gestión de identidades, análisis de vulnerabilidades y OWASP Top 10.",
+          "prerequisites": ["IS503"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Ing. Valentina Osorio",
+              "room": "Aula 215",
+              "total_quota": 25,
+              "available_quota": 10,
+              "schedules": [
+                {"day": "Martes", "start_time": "18:00", "end_time": "21:00", "room": "Aula 215"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS703",
+          "name": "Inteligencia Artificial",
+          "short_name": "Inteligencia Artificial",
+          "credits": 3,
+          "semester": 7,
+          "status": "no_habilitada",
+          "description": "Búsquedas heurísticas A*, árboles de decisión, agentes inteligentes y representación del conocimiento.",
+          "prerequisites": ["IS401"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Carlos Buitrago",
+              "room": "Lab IA",
+              "total_quota": 25,
+              "available_quota": 16,
+              "schedules": [
+                {"day": "Jueves", "start_time": "14:00", "end_time": "17:00", "room": "Lab IA"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS704",
+          "name": "Desarrollo de Aplicaciones Móviles",
+          "short_name": "Desarrollo Móvil",
+          "credits": 3,
+          "semester": 7,
+          "status": "no_habilitada",
+          "description": "Arquitectura de apps móviles nativas e híbridas, persistencia local y consumo de servicios.",
+          "prerequisites": ["IS602"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Ing. Laura Pineda",
+              "room": "Lab Móviles",
+              "total_quota": 20,
+              "available_quota": 12,
+              "schedules": [
+                {"day": "Viernes", "start_time": "14:00", "end_time": "17:00", "room": "Lab Móviles"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS705",
+          "name": "Gestión Ambiental y Sostenibilidad",
+          "short_name": "Gestión Ambiental",
+          "credits": 2,
+          "semester": 7,
+          "status": "disponible",
+          "description": "Impacto ambiental de proyectos TIC, Green Computing y normatividad ISO 14001.",
+          "prerequisites": [],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dra. Mónica Hoyos",
+              "room": "Aula 104",
+              "total_quota": 35,
+              "available_quota": 20,
+              "schedules": [
+                {"day": "Sábado", "start_time": "09:00", "end_time": "11:00", "room": "Aula 104"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "name": "Semestre 8",
+      "courses": [
+        {
+          "code": "IS801",
+          "name": "Computación en la Nube",
+          "short_name": "Cloud Computing",
+          "credits": 3,
+          "semester": 8,
+          "status": "no_habilitada",
+          "description": "Infraestructura como código, contenedores Docker/Kubernetes, Serverless y nubes públicas.",
+          "prerequisites": ["IS701"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Ing. Valentina Osorio",
+              "room": "Lab Cloud",
+              "total_quota": 25,
+              "available_quota": 15,
+              "schedules": [
+                {"day": "Lunes", "start_time": "18:00", "end_time": "21:00", "room": "Lab Cloud"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS802",
+          "name": "Aprendizaje Automático (Machine Learning)",
+          "short_name": "Machine Learning",
+          "credits": 3,
+          "semester": 8,
+          "status": "no_habilitada",
+          "description": "Regresión, clasificación supervisada y no supervisada, redes neuronales y evaluación de modelos.",
+          "prerequisites": ["IS703"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Carlos Buitrago",
+              "room": "Lab IA",
+              "total_quota": 25,
+              "available_quota": 18,
+              "schedules": [
+                {"day": "Miércoles", "start_time": "14:00", "end_time": "17:00", "room": "Lab IA"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS803",
+          "name": "Auditoría de Sistemas",
+          "short_name": "Auditoría Sistemas",
+          "credits": 3,
+          "semester": 8,
+          "status": "no_habilitada",
+          "description": "Marcos de control COBIT, ITIL, evaluación de riesgos de TI y normativas de auditoría interna.",
+          "prerequisites": ["IS702"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "MSc. Hernán Vélez",
+              "room": "Aula 207",
+              "total_quota": 30,
+              "available_quota": 22,
+              "schedules": [
+                {"day": "Martes", "start_time": "18:00", "end_time": "21:00", "room": "Aula 207"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS804",
+          "name": "Formulación de Proyectos de Grado",
+          "short_name": "Proyecto de Grado I",
+          "credits": 3,
+          "semester": 8,
+          "status": "no_habilitada",
+          "description": "Definición del problema de investigación, marco teórico, metodología y propuesta formal.",
+          "prerequisites": ["IS603"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dra. Sofía Valenzuela",
+              "room": "Aula 309",
+              "total_quota": 20,
+              "available_quota": 10,
+              "schedules": [
+                {"day": "Jueves", "start_time": "16:00", "end_time": "19:00", "room": "Aula 309"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS805",
+          "name": "Electiva Técnica I: Big Data",
+          "short_name": "Big Data Analytics",
+          "credits": 3,
+          "semester": 8,
+          "status": "no_habilitada",
+          "description": "Ecosistema Hadoop, Spark, procesamiento de flujos Kafka y análisis masivo de datos.",
+          "prerequisites": ["IS502"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "MSc. Diana Cárdenas",
+              "room": "Lab 101",
+              "total_quota": 20,
+              "available_quota": 14,
+              "schedules": [
+                {"day": "Viernes", "start_time": "17:00", "end_time": "20:00", "room": "Lab 101"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "name": "Semestre 9",
+      "courses": [
+        {
+          "code": "IS901",
+          "name": "Desarrollo de Proyecto de Grado",
+          "short_name": "Proyecto de Grado II",
+          "credits": 4,
+          "semester": 9,
+          "status": "no_habilitada",
+          "description": "Ejecución del cronograma de investigación, desarrollo de prototipos y pruebas de campo.",
+          "prerequisites": ["IS804"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dra. Sofía Valenzuela",
+              "room": "Seminario Ing",
+              "total_quota": 20,
+              "available_quota": 15,
+              "schedules": [
+                {"day": "Lunes", "start_time": "14:00", "end_time": "17:00", "room": "Seminario Ing"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS902",
+          "name": "Internet de las Cosas (IoT)",
+          "short_name": "Internet de las Cosas",
+          "credits": 3,
+          "semester": 9,
+          "status": "no_habilitada",
+          "description": "Sistemas embebidos, sensores, protocolos MQTT/CoAP y arquitecturas Edge Computing.",
+          "prerequisites": ["IS701"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Ing. Rodrigo Silva",
+              "room": "Lab IoT",
+              "total_quota": 20,
+              "available_quota": 12,
+              "schedules": [
+                {"day": "Miércoles", "start_time": "14:00", "end_time": "17:00", "room": "Lab IoT"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS903",
+          "name": "Gestión Estratégica de TI",
+          "short_name": "Gestión Estrat. TI",
+          "credits": 3,
+          "semester": 9,
+          "status": "no_habilitada",
+          "description": "Alineación estratégica de TI con el negocio, planeación estratégica y gobierno corporativo.",
+          "prerequisites": ["IS803"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "MSc. Hernán Vélez",
+              "room": "Aula 211",
+              "total_quota": 25,
+              "available_quota": 18,
+              "schedules": [
+                {"day": "Martes", "start_time": "18:00", "end_time": "21:00", "room": "Aula 211"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS904",
+          "name": "Electiva Técnica II: Ciberseguridad Ofensiva",
+          "short_name": "Ethical Hacking",
+          "credits": 3,
+          "semester": 9,
+          "status": "no_habilitada",
+          "description": "Pruebas de penetración, análisis forense digital y hardening de sistemas.",
+          "prerequisites": ["IS702"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Ing. Valentina Osorio",
+              "room": "Lab Seguridad",
+              "total_quota": 20,
+              "available_quota": 10,
+              "schedules": [
+                {"day": "Jueves", "start_time": "18:00", "end_time": "21:00", "room": "Lab Seguridad"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS905",
+          "name": "Ética y Responsabilidad Social Profesional",
+          "short_name": "Ética Profesional",
+          "credits": 2,
+          "semester": 9,
+          "status": "no_habilitada",
+          "description": "Códigos deontológicos de ingeniería de software, impacto de la IA y privacidad.",
+          "prerequisites": ["IS205"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Lic. Mariana Restrepo",
+              "room": "Aula 109",
+              "total_quota": 30,
+              "available_quota": 20,
+              "schedules": [
+                {"day": "Viernes", "start_time": "17:00", "end_time": "19:00", "room": "Aula 109"}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "name": "Semestre 10",
+      "courses": [
+        {
+          "code": "IS1001",
+          "name": "Práctica Profesional Empresarial",
+          "short_name": "Práctica Profesional",
+          "credits": 6,
+          "semester": 10,
+          "status": "no_habilitada",
+          "description": "Vinculación laboral directa en organizaciones tecnológicas desarrollando proyectos reales.",
+          "prerequisites": ["IS901"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Coordinación de Prácticas",
+              "room": "Empresa Externa",
+              "total_quota": 50,
+              "available_quota": 35,
+              "schedules": [
+                {"day": "Lunes", "start_time": "08:00", "end_time": "17:00", "room": "Empresa"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS1002",
+          "name": "Sustentación de Trabajo de Grado",
+          "short_name": "Sustentación Grado",
+          "credits": 3,
+          "semester": 10,
+          "status": "no_habilitada",
+          "description": "Defensa pública del proyecto de grado ante jurados evaluadores calificados.",
+          "prerequisites": ["IS901"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Comité de Grados",
+              "room": "Auditorio Principal",
+              "total_quota": 20,
+              "available_quota": 18,
+              "schedules": [
+                {"day": "Viernes", "start_time": "09:00", "end_time": "12:00", "room": "Auditorio"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS1003",
+          "name": "Innovación y Emprendimiento Tecnológico",
+          "short_name": "Emprendimiento TIC",
+          "credits": 3,
+          "semester": 10,
+          "status": "no_habilitada",
+          "description": "Modelo de negocio Canvas, startups tecnológicas, levantamiento de capital y patentes.",
+          "prerequisites": ["IS903"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "MSc. Hernán Vélez",
+              "room": "Aula 214",
+              "total_quota": 30,
+              "available_quota": 25,
+              "schedules": [
+                {"day": "Martes", "start_time": "18:00", "end_time": "21:00", "room": "Aula 214"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS1004",
+          "name": "Seminario de Tendencias Tecnológicas",
+          "short_name": "Seminario Tendencias",
+          "credits": 2,
+          "semester": 10,
+          "status": "no_habilitada",
+          "description": "Computación cuántica, Web3, agentes autónomos y biocomputación.",
+          "prerequisites": ["IS801"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Dr. Héctor Ordoñez",
+              "room": "Auditorio 2",
+              "total_quota": 40,
+              "available_quota": 30,
+              "schedules": [
+                {"day": "Jueves", "start_time": "17:00", "end_time": "19:00", "room": "Auditorio 2"}
+              ]
+            }
+          ]
+        },
+        {
+          "code": "IS1005",
+          "name": "Liderazgo y Gestión de Equipos de Alto Rendimiento",
+          "short_name": "Liderazgo de Equipos",
+          "credits": 2,
+          "semester": 10,
+          "status": "no_habilitada",
+          "description": "Inteligencia emocional, negociación, resolución de conflictos y liderazgo transformacional.",
+          "prerequisites": ["IS905"],
+          "groups": [
+            {
+              "group_id": "G1",
+              "teacher": "Lic. Mariana Restrepo",
+              "room": "Aula 103",
+              "total_quota": 35,
+              "available_quota": 28,
+              "schedules": [
+                {"day": "Sábado", "start_time": "08:00", "end_time": "10:00", "room": "Aula 103"}
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
