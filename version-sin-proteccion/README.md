@@ -26,3 +26,14 @@ python version-sin-proteccion/main.py
 # Parámetros personalizados: python version-sin-proteccion/main.py <cupos> <estudiantes> <pausa>
 python version-sin-proteccion/main.py 5 20 0.02
 ```
+## Sección crítica
+
+Son los pasos 1 a 5 del flujo: leer `available_quota`, comprobar `> 0`, la pausa
+artificial, el decremento y el registro del estudiante en la lista compartida.
+
+Es la sección crítica porque son los únicos pasos que leen y modifican estado
+compartido (`available_quota` y la lista de inscritos), y la decisión de inscribir
+depende de que el contador no cambie entre la lectura y la escritura. Crear los
+hilos, esperar en la barrera e imprimir resultados no tocan datos compartidos,
+por eso quedan fuera. Sin exclusión mutua, estos pasos se intercalan entre hilos y
+varios estudiantes obtienen cupo con la misma lectura.
